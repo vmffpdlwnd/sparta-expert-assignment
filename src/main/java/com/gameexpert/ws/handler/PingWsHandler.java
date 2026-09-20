@@ -31,7 +31,9 @@ public class PingWsHandler implements WsMessageHandler {
         if (connection == null || connection.session() != context.session()) {
             return;
         }
-        // TODO Lv 11: presenceService.heartbeat()에 월드 ID와 현재 연결 ID를 전달합니다.
-        // TODO Lv 11: broadcaster.sendTo()로 현재 세션에 PongResponse를 보냅니다.
+        // Lv 11: presenceService.heartbeat()에 월드 ID와 현재 연결 ID를 전달
+        presenceService.heartbeat(context.worldId(), context.session().getId());
+        // Lv 11: broadcaster.sendTo()로 현재 세션에 PongResponse를 보냄
+        broadcaster.sendTo(context.session(), new PongResponse());
     }
 }

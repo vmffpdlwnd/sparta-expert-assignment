@@ -55,7 +55,8 @@ public class MessageRouter {
             return;
         }
         try {
-            // TODO Lv 11: handler에 context와 message를 전달해 handle()을 호출합니다.
+            //Lv 11: 찾은 핸들러 호출
+            handler.handle(context, message);
         } catch (ActionQueueOverflowException exception) {
             log.warn("액션 큐 상한 초과로 거부: type={}, world={}, nickname={}",
                     type, context.worldId(), context.nickname());
