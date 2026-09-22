@@ -1,5 +1,6 @@
 package com.gameexpert.chat.relay;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -21,7 +22,10 @@ public class ChatRelay implements MessageListener {
     private final LocalChatSender localChatSender;
 
     public void publish(Long worldId, Object message) {
-        // TODO Lv 20: worldId와 message를 JSON으로 묶어 채팅 채널에 발행합니다.
+        // Lv 20: worldId와 message를 JSON으로 묶어 채팅 채널에 발행
+        Map<String, Object> envelope = Map.of("worldId", worldId, "message", message);
+        String json =objectMapper.writeValueAsString(envelope);
+        redisTemplate.convertAndSend(CHANNEL, json);
     }
 
     @Override

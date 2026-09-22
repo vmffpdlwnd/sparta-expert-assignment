@@ -37,7 +37,7 @@ class ChatRelayTest {
                 "application.properties에서 Pub/Sub을 활성화합니다.");
     }
 
-    // @Test
+    @Test
     void publishesWorldIdAndMessageAsJson() {
         StringRedisTemplate redis = mock(StringRedisTemplate.class);
         ObjectMapper mapper = new ObjectMapper();
