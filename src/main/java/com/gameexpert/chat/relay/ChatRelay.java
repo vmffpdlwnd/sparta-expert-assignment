@@ -1,6 +1,5 @@
 package com.gameexpert.chat.relay;
 
-import java.util.HashMap;
 import java.util.Map;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -30,6 +29,10 @@ public class ChatRelay implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        // TODO Lv 20: JSON에서 worldId와 message를 읽어 localChatSender.send()로 전달합니다.
+        // Lv 20: JSON에서 worldId와 message를 읽어 localChatSender.send()로 전달
+        JsonNode envelope = objectMapper.readTree(message.getBody());
+        Long worldId = envelope.path("worldId").asLong();
+        JsonNode payload = envelope.path("message");
+        localChatSender.send(worldId, payload);
     }
 }

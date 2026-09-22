@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 class ChatRelayTest {
 
-    // @Test
+    @Test
     void enablesPubSubInApplicationProperties() throws Exception {
         Properties properties = new Properties();
         try (InputStream input = getClass().getResourceAsStream("/application.properties")) {
@@ -55,7 +55,7 @@ class ChatRelayTest {
         verifyNoInteractions(sender);
     }
 
-    // @Test
+    @Test
     void receivedMessageIsSentLocallyWithoutPublishingAgain() {
         StringRedisTemplate redis = mock(StringRedisTemplate.class);
         ObjectMapper mapper = new ObjectMapper();
@@ -74,7 +74,7 @@ class ChatRelayTest {
         verifyNoInteractions(redis);
     }
 
-    // @Test
+    @Test
     void bothServersReceiveOneMessageThroughRedis() throws Exception {
         try (GenericContainer<?> redis = new GenericContainer<>("redis:7-alpine")
                 .withExposedPorts(6379)) {
